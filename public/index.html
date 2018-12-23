@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Things to Watch</title>
+
+    <!-- update the version number as needed -->
+    <script defer src="/__/firebase/5.5.8/firebase-app.js"></script>
+    <script defer src="/__/firebase/5.5.8/firebase-auth.js"></script>
+    <script defer src="/__/firebase/5.5.8/firebase-database.js"></script>
+    <script defer src="/__/firebase/5.5.8/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/5.5.8/firebase-storage.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script defer src="/__/firebase/init.js"></script>
+
+    <!-- <script defer src="https://unpkg.com/redux@4.0.0/dist/redux.min.js"></script> -->
+    <!-- <script defer src="https://unpkg.com/mobx/lib/mobx.umd.js"></script> -->
+    <script defer src="https://unpkg.com/rxjs/bundles/rxjs.umd.min.js"></script>
+    <!-- <script defer src="https://unpkg.com/nanohtml@1.4.0/dist/bundle.min.js"></script> -->
+    <!-- <script type="module" src="https://unpkg.com/lit-html@0.13.0/lit-html.js"></script> -->
+    <!-- <script defer src="https://unpkg.com/hyperapp"></script> -->
+    <!-- <script defer src="https://unpkg.com/hyperapp-firebase-auth"></script> -->
+
+    <script type="module" src="/index.js"></script>
+    <script nomodule src="unsupported.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/index.css">
+  </head>
+  <body>
+    <div id="header"></div>
+    <div id="content"></div>
+
+    <template id="template-header-item">
+      <div class="header-item"></div>
+    </template>
+
+    <template id="movie-card">
+      <tr>
+        <td class="record"></td>
+        <td></td>
+      </tr>
+    </template>
+
+    <template id="movie-list">
+
+    </template>
+  </body>
+</html>

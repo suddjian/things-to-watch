@@ -1,0 +1,89 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+  position: relative;
+}
+
+html {
+  /* system font stack */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+
+  --cat: 0.1s;
+  --badger: 0.2s;
+  --turtle: 0.4s;
+}
+
+body {
+  position: relative;
+  margin: 0;
+}
+
+.nav {
+  padding: 0;
+  margin: 20px;
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.nav .item {
+  margin-left: 20px;
+}
+
+.nav .item.standoffish {
+  margin-left: auto;
+}
+
+
+/* link and button nonsense I put way too much effort into */
+
+a, .link, button, .btn {
+  transition: color var(--badger),
+              background-color  var(--cat),
+              border-color var(--cat);
+}
+
+a, .link {
+  border: none;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  color: black;
+  border-radius: 0;
+  text-decoration: underline;
+}
+
+a:hover, .link:hover {
+  color: mediumvioletred;
+}
+
+button, .btn {
+  font-size: 1rem;
+  padding: 4px 12px;
+  border-radius: 4px;
+  background: black;
+  color: white;
+  border: 2px solid transparent;
+}
+
+button:hover, .btn:hover {
+  cursor: pointer;
+  background: white;
+  color: mediumvioletred;
+  border-color: mediumvioletred;
+}
+
+button:focus, .btn:focus, a:focus, .link:focus {
+  /* reasonable settings for the outlines that browsers use on focused elements */
+  outline: dotted mediumvioletred 1px;
+  transition: color var(--badger),
+              background-color  var(--cat);
+}
+
+button.wumbo, .btn.wumbo {
+  font-size: 1.4rem;
+  min-width: 100px;
+}
