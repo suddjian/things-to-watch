@@ -1,11 +1,9 @@
-// var morph = require('nanomorph')
 import { render } from '/lit-html/lit-html.js'
-import { googleSignIn, user$, auth$ } from '/actions/auth.js'
-import { topbar$ } from '/ui/topbar.js'
+import { page$ } from '/ui/page.js'
 
-const header = document.getElementById('header')
+const root = document.body
 
-topbar$.subscribe(element => {
-  render(element, header)
+page$.subscribe(element => {
+  render(element, root)
 })
 

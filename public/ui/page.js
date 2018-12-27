@@ -1,43 +1,33 @@
-const { combineLatest, timer,  operators: { map } } = rxjs
+const { timer } = rxjs
+import { googleSignIn, user$, loading$ } from '/state/auth.js'
 import { html as h } from '/lit-html/lit-html.js'
-import { user$, loading$ } from '/actions/auth.js'
+import { mapStreams, applySome } from '/utils.js'
+import { topbar$ } from './topbar.js'
+import { newMoviePage$ } from './new-movie.js'
+import { WumboButton } from './buttons.js'
 
-const SignInPrompt = (loading, tick) => h`
-  <header>
-    <ul class="nav">
-      ${user && h`
-        <li class="item">
-          <a href="/new">+ New</a>
-        </li>
-      `}
-      <li class="item standoffish">
-        ${user
-          ? SignOutBtn
-          : SignInBtn({ loading, tick })}
-      </li>
-    </ol>
-  </header>
+const MainPage = (topbar, newMoviePage) => h`
+<div class="wrapp">
+  ${topbar}
+  <div class="content">
+    ${newMoviePage}
+  </div>
+</div>
 `
 
-const Page = (user, loading, tick) => h`
-  <header>
-    <ul class="nav">
-      ${user && h`
-        <li class="item">
-          <a href="/new">+ New</a>
-        </li>
-      `}
-      <li class="item standoffish">
-        ${user
-          ? SignOutBtn
-          : SignInBtn({ loading, tick })}
-      </li>
-    </ol>
-  </header>
+const SignInBtn = applySome({ action: googleSignIn, text: 'Sign In'})(WumboButton)
+
+const SignInPage = (loading, tick) => h`
+<div class="full">
+  ${SignInBtn({ loading, tick })}
+</div>
 `
 
-const ticker$ = timer(0, 1000)
-export const topbar$ = combineLatest(user$, loading$, ticker$)
-  .pipe(
-    map(([user, loading, tick]) => Topbar(user, loading, tick))
-  )
+const Page = (user, topbar, newMoviePage, loading, tick) => {
+  if (user) {
+    return MainPage(topbar, newMoviePage)
+  }
+  return SignInPage(loading, tick)
+}
+
+export const page$ = mapStreams([user$, topbar$, newMoviePage$, loading$, timer(0, 1000)], Page)

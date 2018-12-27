@@ -1,9 +1,34 @@
 const { BehaviorSubject, operators: { first, mapTo, skip } } = rxjs
+import firestore, { usersRef } from '/firestore.js'
 
 // skip the initial null value while uninitialized
 export const auth$ = new BehaviorSubject(null).pipe(skip(1))
 export const user$ = new BehaviorSubject(null).pipe(skip(1))
 export const loading$ = new BehaviorSubject(false)
+
+const get = (...paths) => (obj) => {
+  let result = obj
+  for (let i = 0; i < paths.length; i++) {
+    const path = paths[i]
+    if (result != null) {
+      result = result[path]
+    } else {
+      return result
+    }
+  }
+}
+
+user$.subscribe(async user => {
+  if (user) {
+    const userData = {
+      defaultProfile: {
+        name: user.displayName,
+        photoURL: user.photoURL,
+      }
+    }
+    await usersRef.doc(user.uid).set(userData, { merge: true })
+  }
+})
 
 firebase.auth().onAuthStateChanged((user) => {
   console.debug('firebase auth state changed', user)

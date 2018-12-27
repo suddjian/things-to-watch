@@ -1,20 +1,8 @@
-const { combineLatest, timer,  operators: { map } } = rxjs
+const { timer } = rxjs
 import { html as h } from '/lit-html/lit-html.js'
-import { googleSignIn, signOut, user$, loading$ } from '/actions/auth.js'
 
-const WumboButton = ({ action, text, loading, tick }) => h`
-<button class="authbtn wumbo ${loading || ''}" @click=${action}>
-  ${loading
-    ? '.'.repeat(tick != null ? tick % 3 + 1 : 3)
-    : text}
-</button>
-`
-
-// apply some of the props to a function now, and some later
-// (only works on functions that take a single object as a parameter)
-const applySome = props => fn => moreProps => fn(Object.assign({}, props, moreProps))
-
-const SignInBtn = applySome({ action: googleSignIn, text: 'Sign In'})(WumboButton)
+import { mapStreams } from '/utils.js'
+import { signOut, user$, loading$ } from '/state/auth.js'
 
 const SignOutBtn = h`
 <button class="link" @click=${signOut}>
@@ -22,25 +10,17 @@ const SignOutBtn = h`
 </button>
 `
 
-const Topbar = (user, loading, tick) => h`
+const Topbar = (user) => h`
   <header>
-    <ul class="nav">
-      ${user && h`
-        <li class="item">
-          <a href="/new">+ New</a>
-        </li>
-      `}
-      <li class="item standoffish">
-        ${user
-          ? SignOutBtn
-          : SignInBtn({ loading, tick })}
-      </li>
-    </ol>
+    ${user && h`
+      <div class="item">
+        <a href="/new">+ New</a>
+      </div>
+    `}
+    <div class="item standoffish">
+      ${user && SignOutBtn}
+    </div>
   </header>
 `
 
-const ticker$ = timer(0, 1000)
-export const topbar$ = combineLatest(user$, loading$, ticker$)
-  .pipe(
-    map(([user, loading, tick]) => Topbar(user, loading, tick))
-  )
+export const topbar$ = mapStreams([user$], Topbar)
