@@ -20,6 +20,10 @@ body {
   margin: 0;
   background: white;
   height: 100vh;
+  background: linear-gradient(
+    to top left,
+    #c31fa8, #f5426b, #ef6616
+  );
 }
 
 .full {
@@ -33,10 +37,6 @@ body {
   height: 100%;
   display: grid;
   grid-template-rows: 72px 1fr;
-  background: linear-gradient(
-    to top right,
-    #c31fa8, #f5426b, #ef6616
-  );
 }
 
 header {
