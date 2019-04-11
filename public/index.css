@@ -157,3 +157,41 @@ button.wumbo, .btn.wumbo {
   font-size: 1.8rem;
   min-width: 6em;
 }
+
+.loading {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.loading-circle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background: white;
+  opacity: .6;
+}
+
+.loading-circle:nth-child(1) {
+
+}
+
+.loading-circle:nth-child(2) {
+
+}
+
+@keyframes rotate {
+  0%, 100% {
+    transform: translate3d(0)
+  }
+  25% {
+    transform: translate3d()
+  }
+}
+
+.loading-circle:nth-child(3) {
+
+}
